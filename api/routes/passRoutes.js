@@ -1,14 +1,14 @@
 const passRoutes = require('express').Router();
 
 const mg = require('mailgun-js');
-const fileUpload = require('express-fileupload');
+// const fileUpload = require('express-fileupload');
 const {
   forgotPasswordv1,
   resetPasswordv1,
 } = require('../controllers/AuthController');
 
-const app = express.Router();
-app.use(fileUpload());
+// const app = express.Router();
+// app.use(fileUpload());
 
 const mailgun = () =>
   mg({

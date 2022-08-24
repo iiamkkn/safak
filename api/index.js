@@ -3,9 +3,8 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const productRouter = require('./routes/productRoutes');
 const http = require('http');
-const Server = require('socket.io');
+const { Server } = require('socket.io');
 const cookieParser = require('cookie-parser');
 const cloudinary = require('cloudinary');
 const bodyParser = require('body-parser');
@@ -23,14 +22,17 @@ const PaymentRouter = require('./routes/paymentRoute');
 const { orderRouter } = require('./routes/orderRoutes');
 const userRouter = require('./routes/userRoutes');
 
+const connectDB = require('./config/dbConn');
+connectDB();
+
 dotenv.config();
 
-mongoose
-  .connect(process.env.MONGODB_URL, {})
-  .then(() => console.log('DB Connection Successfull'))
-  .catch((err) => {
-    console.error(err);
-  });
+// mongoose
+//   .connect(process.env.MONGODB_URL, {})
+//   .then(() => console.log('DB Connection Successfull'))
+//   .catch((err) => {
+//     console.error(err);
+//   });
 
 app.use(cors());
 app.use(cookieParser());
@@ -150,6 +152,13 @@ io.on('connection', (socket) => {
   });
 });
 
-app.listen(8800, () => {
-  console.log('Backend server is running!');
+// app.listen(8800, () => {
+//   console.log('Backend server is running!');
+// });
+
+// Port Config
+const port = process.env.PORT || 5000;
+// Server config
+httpServer.listen(port, () => {
+  console.log(`Server Runs Successfully at http://localhost:${port}`);
 });
