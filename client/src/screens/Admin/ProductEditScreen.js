@@ -18,7 +18,6 @@ import 'tippy.js/dist/tippy.css';
 import parse from 'html-react-parser';
 // import NewsLetter from '../../components/NewsLetter/NewsLetter';
 import { toast } from 'react-toastify';
-import { AxiosInstance } from '../../api/AxiosInstance';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -72,8 +71,8 @@ export default function ProductEditScreen() {
   const [brand, setBrand] = useState('');
   const [description, setDescription] = useState('');
   const [Hdescription, setHDescription] = useState('');
-  const [size, setSize] = useState([]);
-  const [color, setColor] = useState([]);
+  const [size, setSize] = useState('');
+  const [color, setColor] = useState('');
   const [Productsaved, setProductsaved] = useState('');
   const [ProductIMGsaved, setProductIMGsaved] = useState('');
   const [ProductDELIMGsaved, setProductDELIMGsaved] = useState('');
@@ -82,7 +81,7 @@ export default function ProductEditScreen() {
     const fetchData = async () => {
       try {
         dispatch({ type: 'FETCH_REQUEST' });
-        const { data } = await AxiosInstance.get(`/api/products/${productId}`);
+        const { data } = await axios.get(`/api/products/${productId}`);
         setName(data.name);
         setHName(data.Hname);
         setSlug(data.slug);
@@ -107,7 +106,6 @@ export default function ProductEditScreen() {
     fetchData();
   }, [productId]);
 
-  // const [cat, setCat] = useState([]);
   const handleColor = (e) => {
     setColor(e.target.value.split(','));
   };
@@ -119,7 +117,7 @@ export default function ProductEditScreen() {
     e.preventDefault();
     try {
       dispatch({ type: 'UPDATE_REQUEST' });
-      await AxiosInstance.put(
+      await axios.put(
         `/api/products/${productId}`,
         {
           _id: productId,
@@ -164,16 +162,12 @@ export default function ProductEditScreen() {
     bodyFormData.append('file', file);
     try {
       dispatch({ type: 'UPLOAD_REQUEST' });
-      const { data } = await AxiosInstance.post(
-        '/api/upload/image',
-        bodyFormData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
+      const { data } = await axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       dispatch({ type: 'UPLOAD_SUCCESS' });
 
       if (forImages) {
@@ -207,7 +201,7 @@ export default function ProductEditScreen() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await AxiosInstance.get(`/api/products/categories`);
+        const { data } = await axios.get(`/api/products/categories`);
         setCategories(data);
       } catch (err) {
         toast.error(getError(err));
@@ -322,7 +316,7 @@ export default function ProductEditScreen() {
                       type="number"
                       name="price"
                       id="price"
-                      placeholder="Price"
+                      placeholder={lang === 'EN' ? 'Price' : 'Ár'}
                       value={price}
                       onChange={(e) => setPrice(e.target.value)}
                       required
@@ -365,7 +359,7 @@ export default function ProductEditScreen() {
                       type="text"
                       name="brand"
                       id="brand"
-                      placeholder="Brand"
+                      placeholder={lang === 'EN' ? 'Brand' : 'Márka'}
                       value={brand}
                       onChange={(e) => setBrand(e.target.value)}
                       required
@@ -381,7 +375,9 @@ export default function ProductEditScreen() {
                       type="text"
                       name="countInStock"
                       id="countInStock"
-                      placeholder="Count In Stock"
+                      placeholder={
+                        lang === 'EN' ? 'Count In Stock' : 'Számlál Raktáron'
+                      }
                       value={countInStock}
                       onChange={(e) => setCountInStock(e.target.value)}
                       required
@@ -430,10 +426,12 @@ export default function ProductEditScreen() {
                       type="text"
                       name="size"
                       id="size"
-                      placeholder="Product Size"
+                      placeholder={
+                        lang === 'EN' ? 'Product Size' : 'Termék méret'
+                      }
                       value={size}
-                      // onChange={(e) => setSize(e.target.value)}
                       onChange={handleSize}
+                      // onChange={(e) => setSize(e.target.value)}
                       required
                     />
                     <label for="size">
@@ -447,10 +445,12 @@ export default function ProductEditScreen() {
                       type="text"
                       name="color"
                       id="color"
-                      placeholder="Red, Green"
+                      placeholder={
+                        lang === 'EN' ? 'Product Color' : 'Termék színe'
+                      }
                       value={color}
-                      // onChange={(e) => setColor(e.target.value)}
                       onChange={handleColor}
+                      // onChange={(e) => setColor(e.target.value)}
                       required
                     />
                     <label for="color">

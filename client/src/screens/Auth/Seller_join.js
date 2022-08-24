@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../CSS/SellerJoin.css';
 import { Helmet } from 'react-helmet-async';
@@ -113,206 +112,90 @@ export default function SellerJoin() {
               </Logo> */}
               <div className="seller_join_divs_container">
                 <div className="seller_join_div_left">
-                  <motion.h1
-                    initial={{
-                      position: 'relative',
-                      top: '20%',
-                    }}
-                    whileInView={{
-                      top: '0%',
-                    }}
-                    transition={{
-                      duration: 2,
-                      type: 'spring',
-                    }}
-                  >
-                    Sell Your Products
-                  </motion.h1>
-                  <motion.h1
-                    initial={{
-                      position: 'relative',
-                      top: '20%',
-                    }}
-                    whileInView={{
-                      top: '0%',
-                    }}
-                    transition={{
-                      duration: 2,
-                      type: 'spring',
-                    }}
-                  >
-                    <span className="Online4free">Online For Free!</span>
-                  </motion.h1>
-                  <motion.button
-                    initial={{
-                      position: 'relative',
-                      top: '20%',
-                    }}
-                    whileInView={{
-                      top: '0%',
-                    }}
-                    transition={{
-                      duration: 2,
-                      type: 'spring',
-                    }}
+                  <h1>
+                    {lang === 'EN' ? 'Sell Your Products' : 'Adja el termékeit'}
+                  </h1>
+                  <h1>
+                    <span className="Online4free">
+                      {' '}
+                      {lang === 'EN' ? ' Online For Free!' : 'Online ingyen!'}
+                    </span>
+                  </h1>
+                  <button
                     className="seller_join_now_btn"
                     type="submit"
                     onClick={onClickSellerBTN}
                   >
-                    Open a Store Now
+                    {lang === 'EN'
+                      ? ' Open a Store Now'
+                      : 'Nyisson meg egy online áruházat'}
                     <i className="bx bx-right-arrow-alt"></i>
-                  </motion.button>
-                  <motion.p
-                    initial={{
-                      position: 'relative',
-                      top: '20%',
-                    }}
-                    whileInView={{
-                      top: '0%',
-                    }}
-                    transition={{
-                      duration: 2,
-                      type: 'spring',
-                    }}
-                  >
-                    Zalazon is an online marketplace with an aim to promote
-                    online selling and buying, artisans, artists and
-                    manufacturers with a focus on e-commerce. Zalazon aims to
-                    empower the sellers', satisfy the customer and make online
-                    business professional, easy and fast.
-                  </motion.p>
+                  </button>
+                  <p>
+                    {lang === 'EN'
+                      ? ' Zalazon is an online marketplace with an aim to promote online selling and buying, for artisans, artists and manufacturers with a focus on e-commerce. Zalazon aims to empower the sellers, satisfy the customer and make online business professional, easy and fast.'
+                      : 'A Zalazon egy online piactér, amelynek célja az online értékesítés és vásárlás népszerűsítése kézművesek, művészek és gyártók számára, az e-kereskedelemre fókuszálva. A Zalazon célja, hogy felhatalmazza az eladókat, kielégítse az ügyfeleket, és professzionálissá, egyszerűvé és gyorssá tegye az online üzletet.'}
+                  </p>
                 </div>
-                <motion.div
-                  initial={{
-                    position: 'relative',
-                    // top: '4%',
-                    left: '30%',
-                    // rotate: -180
-                  }}
-                  whileInView={{
-                    left: '0%',
-                    // rotate: 0
-                  }}
-                  // viewport={{}}
-
-                  transition={{
-                    duration: 3,
-                    // delay: 0.3,
-                    type: 'spring',
-                  }}
-                  // animate={{ x: 195 }}
-                  // whileHover={{
-                  //   rotate: 360,
-                  //   scale: 1.2,
-                  //   transition: { duration: 1 },
-                  // }}
-                  // whileHover={{ scale: 1.2, transition: { duration: 0.4 } }}
-                  whileTap={{ scale: 0.95 }}
-                  className="seller_join_div_right"
-                >
+                <div className="seller_join_div_right">
                   <img
                     src="https://res.cloudinary.com/kkn-cloudinary/image/upload/v1660687716/avatars/pexels-photo-7857499_dj8leb.webp"
                     alt=""
                   />
-                </motion.div>
+                </div>
               </div>
               <div className="expand_with_zalazon_DIV">
-                <motion.div
-                  initial={{
-                    position: 'relative',
-                    left: '-20%',
-                  }}
-                  whileInView={{
-                    left: '0%',
-                  }}
-                  transition={{
-                    duration: 2,
-                    type: 'spring',
-                  }}
-                  className="expand_with_zalazon"
-                >
+                <div className="expand_with_zalazon">
                   {lang === 'EN' ? (
                     <>Expand your Business</>
                   ) : (
                     'Bővítse vállalkozását'
                   )}
-                </motion.div>
-                <motion.div
-                  initial={{
-                    position: 'relative',
-                    left: '-20%',
-                  }}
-                  whileInView={{
-                    left: '0%',
-                  }}
-                  transition={{
-                    duration: 2,
-                    type: 'spring',
-                  }}
-                  className="expand_with_zalazon_line2"
-                >
+                </div>
+                <div className="expand_with_zalazon_line2">
                   {lang === 'EN' ? <>with Zalazon.</> : 'Zalazonnal.'}
-                </motion.div>
+                </div>
                 <div className="expand_with_zalazon_img_div">
-                  <motion.img
-                    initial={{
-                      position: 'relative',
-                      top: '30%',
-                    }}
-                    whileInView={{
-                      top: '0%',
-                    }}
-                    transition={{
-                      duration: 2,
-                      type: 'spring',
-                    }}
-                    whileTap={{ scale: 0.95 }}
+                  <img
                     src="https://res.cloudinary.com/kkn-cloudinary/image/upload/v1660687716/avatars/pexels-photo-7857491_p9mvkw.jpg"
                     alt=""
                     className="expand_with_zalazon_img"
                   />
-                  <motion.div
-                    initial={{
-                      position: 'relative',
-                      left: '-20%',
-                    }}
-                    whileInView={{
-                      left: '0%',
-                    }}
-                    transition={{
-                      duration: 2,
-                      type: 'spring',
-                    }}
-                    className="expand_with_zalazon_img_right_div"
-                  >
-                    ✔ Get free and easy to manage online store account with
-                    advance features.
-                    <br /> ✔ Store Analytics
-                    <br /> ✔ Easy and secure payment
-                    <br /> ✔ Sell in whole Hungary
-                    <br /> ✔ Deliver at your own or by us (No restirction)
-                    <br /> ✔ Easy and efficient services
-                    <br /> ✔ No hidden fees
-                    <br /> ✔ We bring trust and commitment
-                    <br /> ✔ Follow unfollow a store, StoreFeeds features and
-                    more
-                  </motion.div>
+                  <div className="expand_with_zalazon_img_right_div">
+                    {lang === 'EN' ? (
+                      <>
+                        ✔ Get a free and easy-to-manage online store account.
+                        with advanced features.
+                        <br /> ✔ Store Analytics.
+                        <br /> ✔ Easy and secure payment.
+                        <br /> ✔ Sell in whole Hungary.
+                        <br /> ✔ Deliver on your own or by us (No restriction).
+                        <br /> ✔ Easy and efficient services.
+                        <br /> ✔ No hidden fees.
+                        <br /> ✔ We bring trust and commitment.
+                        <br /> ✔ Follow a store, unfollow a store, Store-Feeds
+                        and more features.
+                      </>
+                    ) : (
+                      <>
+                        ✔ Szerezzen ingyenes és könnyen kezelhető online áruházi
+                        fiókot speciális funkciókkal.
+                        <br /> ✔ Store Analytics.
+                        <br /> ✔ Könnyű és biztonságos fizetés.
+                        <br /> ✔ Magyarország egész területén eladó.
+                        <br /> ✔ Szállítás saját kezűleg vagy nálunk (korlátozás
+                        nélkül).
+                        <br /> ✔ Egyszerű és hatékony szolgáltatások.
+                        <br /> ✔ Nincsenek rejtett díjak.
+                        <br /> ✔ Bizalmat és elkötelezettséget hozunk.
+                        <br /> ✔ Kövessen egy üzletet, ne kövessen egy üzletet,
+                        áruházi hírcsatornákat és egyebeket
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
-              <motion.div
-                initial={{
-                  position: 'relative',
-                  top: '20%',
-                }}
-                whileInView={{
-                  top: '0%',
-                }}
-                transition={{
-                  duration: 2,
-                  type: 'spring',
-                }}
-                className="how_this_works_zalazon"
-              >
+              <div className="how_this_works_zalazon">
                 {lang === 'EN' ? (
                   <>How this all Works?</>
                 ) : (
@@ -328,10 +211,21 @@ export default function SellerJoin() {
                         className="step_join_img"
                       />
                       <div className="step_join_num">01</div>
-                      <div className="step_join_title">Registration</div>
+                      <div className="step_join_title">
+                        {lang === 'EN' ? <>Registration</> : <>Regisztráció</>}
+                      </div>
                       <div className="step_join_para">
-                        Fill in all required details and register your online
-                        store.
+                        {lang === 'EN' ? (
+                          <>
+                            Fill in all required details and register your
+                            online store.
+                          </>
+                        ) : (
+                          <>
+                            Töltse ki az összes szükséges adatot, és
+                            regisztrálja online áruházát.
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -345,11 +239,21 @@ export default function SellerJoin() {
                       />{' '}
                       <div className="step_join_num">02</div>
                       <div className="step_join_title">
-                        Verification & Agreement
+                        {lang === 'EN' ? <>Verification</> : <>Igazolás</>}
                       </div>
                       <div className="step_join_para">
-                        Zalazon. will check portfolio and reach out to you with
-                        a <i>Seller Contract</i>.
+                        {lang === 'EN' ? (
+                          <>
+                            {' '}
+                            Zalazon. will check portfolio and reach out to you
+                            with a <i>Seller Contract</i>.
+                          </>
+                        ) : (
+                          <>
+                            Zalazon. ellenőrzi a portfóliót, és megkeresi Önt
+                            egy <i>eladói szerződéssel</i>.
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -361,10 +265,26 @@ export default function SellerJoin() {
                         className="step_join_img"
                       />{' '}
                       <div className="step_join_num">03</div>
-                      <div className="step_join_title">Start selling</div>
+                      <div className="step_join_title">
+                        {lang === 'EN' ? (
+                          <> Start selling</>
+                        ) : (
+                          <>Kezdje el az értékesítést</>
+                        )}
+                      </div>
                       <div className="step_join_para">
-                        After your portofolio verification, you can start
-                        uploading your products and start selling.
+                        {lang === 'EN' ? (
+                          <>
+                            {' '}
+                            After your portfolio verification, you can start
+                            uploading your products and start selling them.
+                          </>
+                        ) : (
+                          <>
+                            A portfólió ellenőrzése után megkezdheti termékeinek
+                            feltöltését és értékesítését.
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -379,11 +299,29 @@ export default function SellerJoin() {
                         className="step_join_img"
                       />
                       <div className="step_join_num">04</div>
-                      <div className="step_join_title">Quality Check</div>
+                      <div className="step_join_title">
+                        {lang === 'EN' ? (
+                          <> Quality Check</>
+                        ) : (
+                          <>Minőség ellenőrzés</>
+                        )}
+                      </div>
                       <div className="step_join_para">
-                        All products uploaded by any store or seller which be
-                        checked periodically will time and it meets our{' '}
-                        <i>Standards</i>.
+                        {lang === 'EN' ? (
+                          <>
+                            {' '}
+                            All products uploaded by any store or seller which
+                            be checked periodically will time and it meets our{' '}
+                            <i>Standards</i>.
+                          </>
+                        ) : (
+                          <>
+                            Bármely üzlet vagy eladó által feltöltött összes
+                            termék, amelyet rendszeresen ellenőrizni kell,
+                            időnként megfelel, és megfelel a{' '}
+                            <i>szabványainknak</i>.
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -396,10 +334,25 @@ export default function SellerJoin() {
                         className="step_join_img"
                       />{' '}
                       <div className="step_join_num">05</div>
-                      <div className="step_join_title">Features & Settings</div>
+                      <div className="step_join_title">
+                        {lang === 'EN' ? (
+                          <>Features & Settings</>
+                        ) : (
+                          <>Funkciók és beállítások</>
+                        )}
+                      </div>
                       <div className="step_join_para">
-                        With time, we are adding more advance features for both
-                        our sellers and customers.
+                        {lang === 'EN' ? (
+                          <>
+                            With time, we are adding more advanced features for
+                            both our sellers and customers.
+                          </>
+                        ) : (
+                          <>
+                            Idővel fejlettebb funkciókat adunk hozzá eladóink és
+                            vásárlóink számára.
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -412,16 +365,30 @@ export default function SellerJoin() {
                       />{' '}
                       <div className="step_join_num">06</div>
                       <div className="step_join_title">
-                        Have fun selling online
+                        {lang === 'EN' ? (
+                          <>Have fun selling online</>
+                        ) : (
+                          <>Jó szórakozást az online értékesítéshez</>
+                        )}
                       </div>
                       <div className="step_join_para">
-                        Have your own business and stay connected with your
-                        clients and have fun togather.
+                        {lang === 'EN' ? (
+                          <>
+                            {' '}
+                            Have your own business and stay connected with your
+                            clients and have fun together.
+                          </>
+                        ) : (
+                          <>
+                            Legyen saját vállalkozása, maradjon kapcsolatban
+                            ügyfeleivel, és érezze jól magát együtt.
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
               <h1 className="msg_top_zalazon">
                 {/* {lang === 'EN' ? (
                   <>

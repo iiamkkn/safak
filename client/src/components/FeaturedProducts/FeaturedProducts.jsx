@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 // import { data } from '../../data';
 import axios from 'axios';
-import { AxiosInstance } from '../../api/AxiosInstance';
 // import logger from 'use-reducer-logger';
 
 /////////////////////////// styled components design //
@@ -109,7 +108,7 @@ export const FeaturedProducts = () => {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await AxiosInstance.get('/api/products');
+        const result = await axios.get('/api/products');
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data }); // data returned from backend server response which is declared there.
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: err.message });

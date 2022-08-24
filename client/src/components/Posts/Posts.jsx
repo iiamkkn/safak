@@ -58,7 +58,11 @@ const Posts = () => {
           )}
         </>
       ) : user?.following.length === 0 ? (
-        'Please follow some store to get their feeds.'
+        lang === 'EN' ? (
+          'Please follow some store to get their feeds.'
+        ) : (
+          'Kérjük, kövessen egy boltot, hogy megkapja a hírcsatornákat.a'
+        )
       ) : (
         posts.map((post, id) => {
           return <Post data={post} key={id} />;

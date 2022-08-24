@@ -16,7 +16,6 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { mobile, Mscreen } from '../../ResponsiveDesign/responsive';
 import { ToastContainer, toast } from 'react-toastify';
-import { AxiosInstance } from '../../api/AxiosInstance';
 const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -206,20 +205,24 @@ const TopButtons = styled.button`
   padding: 10px;
   font-weight: 600;
   cursor: pointer;
-  border: ${(props) => props.type === 'filled' && 'none'};
-  background-color: ${(props) =>
-    props.type === 'filled' ? 'black' : 'transparent'};
-  color: ${(props) => props.type === 'filled' && 'white'};
+  /* border: ${(props) => props.type === 'filled' && 'none'}; */
+  border: 2px outset #000;
+  background-color: ${(props) => (props.type === 'filled' ? 'black' : 'white')};
+  color: ${(props) => (props.type === 'filled' ? 'black' : 'black')};
 
   ${Mscreen({
     marginTop: '15px',
     width: '200px',
     marginLeft: '-17px',
+    background: '#fff',
+    border: '2px outset #000',
   })}
   ${mobile({
     marginTop: '15px',
     width: '200px',
     marginLeft: '-17px',
+    border: '2px outset #000',
+    background: '#fff',
   })}
 `;
 
@@ -243,7 +246,7 @@ function CartScreen() {
   const { userInfo } = userSignin;
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await AxiosInstance.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       if (lang === 'EN') {
         toast.info(
@@ -436,8 +439,8 @@ function CartScreen() {
                           </Link>
                           <div className="buttons_container_mob">
                             <button
-                              className="btn_mob_iphone"
                               disabled={item.quantity === 1}
+                              className="btn_mob_iphone"
                               onClick={() =>
                                 updateCartHandler(item, item.quantity - 1)
                               }
@@ -448,8 +451,8 @@ function CartScreen() {
                               {item.quantity}
                             </div>
                             <button
-                              className="btn_mob_iphone"
                               disabled={item.quantity === item.countInStock}
+                              className="btn_mob_iphone"
                               onClick={() =>
                                 updateCartHandler(item, item.quantity + 1)
                               }

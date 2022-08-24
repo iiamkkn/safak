@@ -91,7 +91,7 @@ const UserForgetPassUpdate = () => {
   return (
     <>
       <Helmet>
-        <title>{lang === 'EN' ? 'Update Password' : 'Jelszó frissítése'}</title>
+        <title>{lang === 'EN' ? 'New Password' : 'Jelszó frissítése'}</title>
       </Helmet>
       <Navbar />
       <br />
@@ -99,7 +99,7 @@ const UserForgetPassUpdate = () => {
       <center>
         <form onSubmit={handleSubmit}>
           <div class="contField">
-            <h1 className="mb-3">Change Password</h1>
+            <h1 className="mb-3 resetPass_alignment_mob">Change Password</h1>
             <div class="box" controlId="password">
               <input
                 class="input"

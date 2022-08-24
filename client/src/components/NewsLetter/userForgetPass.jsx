@@ -35,43 +35,9 @@ const UserForgetPass = () => {
       }
     }
   };
-
   const lang = localStorage.getItem('lang' || 'HU');
-  // {lang === 'EN' ? 'English' : 'HUN'}
+
   return (
-    // <div className={styles.signup_container}>
-    //   <div className={styles.signup_form_container}>
-    //     <div className={styles.left}>
-    //       <h1>Welcome Back</h1>
-    //       <Link to="/login">
-    //         <button type="button" className={styles.white_btn}>
-    //           Sing in
-    //         </button>
-    //       </Link>
-    //     </div>
-    //     <div className={styles.right}>
-    //       <form className={styles.form_container} onSubmit={handleSubmit}>
-    //         <h1>Create Account</h1>
-
-    //         <input
-    //           type="email"
-    //           placeholder="Email"
-    //           name="email"
-    //           onChange={handleChange}
-    //           value={data.email}
-    //           required
-    //           className={styles.input}
-    //         />
-
-    //         {error && <div className={styles.error_msg}>{error}</div>}
-    //         {msg && <div className={styles.success_msg}>{msg}</div>}
-    //         <button type="submit" className={styles.green_btn}>
-    //           Send Password
-    //         </button>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </div>
     <>
       <Helmet>
         <title>
@@ -84,7 +50,7 @@ const UserForgetPass = () => {
       <center>
         <form onSubmit={handleSubmit}>
           <div class="contField">
-            <h1 className="mb-3">Reset Password</h1>
+            <h1 className="mb-3 resetPass_alignment_mob">Reset Password</h1>
             <div class="box" controlId="email">
               <input
                 class="input"

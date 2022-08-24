@@ -576,7 +576,6 @@ export default function OrderListScreenSeller(props) {
                     </tbody>
                   </table> */}
                 </div>
-                {/* This below mob div is hidden in css */}
                 {/* tableDiv for mobile View */}
                 <div className="tableDiv_mobile">
                   {orders.map((order) => (

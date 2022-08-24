@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { AxiosInstance } from '../AxiosInstance';
 
-const API = AxiosInstance.create({ baseURL: '/api/products' });
+const API = axios.create({ baseURL: '/api/products' });
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('userInfo')) {

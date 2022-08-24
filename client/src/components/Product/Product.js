@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { FavoriteBorderOutlined, SearchOutlined } from '@material-ui/icons';
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import HeartBrokenOutlinedIcon from '@mui/icons-material/HeartBrokenOutlined';
@@ -14,7 +14,6 @@ import MessageBox from '../LoadingBox/MessageBox';
 import { useDispatch } from 'react-redux';
 import { mobile } from '../../ResponsiveDesign/responsive';
 import { ToastContainer, toast } from 'react-toastify';
-import { AxiosInstance } from '../../api/AxiosInstance';
 
 const Info = styled.div`
   opacity: 0;
@@ -127,6 +126,8 @@ const Icon = styled.div`
 `;
 
 const Product = (props) => {
+  const [color, setColor] = useState('');
+  const [size, setSize] = useState('');
   const { product } = props;
 
   const dispatch = useDispatch();
@@ -138,7 +139,7 @@ const Product = (props) => {
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await AxiosInstance.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(`/api/products/${product._id}`);
     if (data.countInStock < quantity) {
       if (lang === 'EN') {
         toast.info(
@@ -166,7 +167,7 @@ const Product = (props) => {
     } else {
       ctxDispatch({
         type: 'CART_ADD_ITEM',
-        payload: { ...product, seller: data.seller, quantity },
+        payload: { ...product, seller: data.seller, quantity, color, size },
       });
     }
   };
@@ -193,7 +194,7 @@ const Product = (props) => {
       (x) => x._id === product._id
     );
     const quantity = existWishLishItem ? existWishLishItem.quantity + 0 : 1;
-    const { data } = await AxiosInstance.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(`/api/products/${product._id}`);
     // if (data.countInStock < quantity) {
     //   window.alert(
     //     'Sorry. Product is not availabe at the moment. It cannot be added to your wishlist.'
@@ -202,7 +203,7 @@ const Product = (props) => {
     // }
     wishctxDispatch({
       type: 'ADD_TO_WISHLIST',
-      payload: { ...product, quantity },
+      payload: { ...product, seller: data.seller, quantity, color, size },
     });
   };
   const lang = localStorage.getItem('lang' || 'HU');

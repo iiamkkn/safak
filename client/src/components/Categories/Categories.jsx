@@ -36,7 +36,11 @@ const CategoriesItem = styled.div`
     background-color: #f7f7f7;
     box-shadow: 1px 1px 1px rgb(220 220 220), -1px -1px 1px rgb(240 240 220);
   }
-  ${mobile({ border: '1px solid #e1e1e1' })}
+  ${mobile({
+    border: '1px solid #e1e1e1',
+    width: '70px',
+    height: '70px',
+  })}
 `;
 const Img = styled.img`
   object-fit: cover;
@@ -109,7 +113,7 @@ export const Categories = () => {
           </CategoriesItem>
         </Link>
         <Link to="/search?category=Electronics" className="Category-link">
-          <CategoriesItem style={{ width: '68px' }}>
+          <CategoriesItem>
             <Img
               src="https://res.cloudinary.com/kkn-cloudinary/image/upload/v1660427999/Zalazon_Icons/Electronics2_ahaxai.png"
               alt="img name"
@@ -172,7 +176,7 @@ export const Categories = () => {
           </CategoriesItem>
         </Link>
         <Link to="/search?category=Decoration" className="Category-link">
-          <CategoriesItem style={{ width: '68px' }}>
+          <CategoriesItem>
             <Img
               src="https://res.cloudinary.com/kkn-cloudinary/image/upload/v1660428102/Zalazon_Icons/decoration_vfowac.png"
               alt="img name"

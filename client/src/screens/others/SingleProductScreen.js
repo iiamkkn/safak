@@ -29,7 +29,6 @@ import { format } from 'timeago.js';
 import { WishList } from '../../Wish';
 import 'tippy.js/dist/tippy.css';
 import '../CSS/ProductListScreen.css';
-import { AxiosInstance } from '../../api/AxiosInstance';
 //
 
 //
@@ -540,7 +539,7 @@ const SingleProductScreen = (props) => {
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === productId);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await AxiosInstance.get(`/api/products/${productId}`);
+    const { data } = await axios.get(`/api/products/${productId}`);
     if (data.countInStock < quantity) {
       if (lang === 'EN') {
         toast.info(
@@ -587,7 +586,7 @@ const SingleProductScreen = (props) => {
   const addToCartHandlerBuyNow = async () => {
     const existItem = cart.cartItems.find((x) => x._id === productId);
     const quantity = existItem ? existItem.quantity + 0 : 1;
-    const { data } = await AxiosInstance.get(`/api/products/${productId}`);
+    const { data } = await axios.get(`/api/products/${productId}`);
     if (data.countInStock < quantity) {
       if (lang === 'EN') {
         toast.info(
@@ -644,7 +643,7 @@ const SingleProductScreen = (props) => {
       (x) => x._id === product._id
     );
     const quantity = existWishLishItem ? existWishLishItem.quantity + 0 : 1;
-    const { data } = await AxiosInstance.get(`/api/products/${product._id}`);
+    const { data } = await axios.get(`/api/products/${product._id}`);
     // if (data.countInStock < quantity) {
     //   window.alert(
     //     'Sorry. It cannot be added as the Product is not available.'

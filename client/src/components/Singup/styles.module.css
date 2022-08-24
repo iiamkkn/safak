@@ -70,8 +70,8 @@
 .error_msg,
 .success_msg {
   width: 370px;
-  padding: 15px;
-  margin: 5px 0;
+  padding: 10px;
+  margin: 10px 0;
   font-size: 14px;
   background-color: #f34646;
   color: white;
@@ -101,7 +101,12 @@
   color: white;
   margin: 10px;
 }
-
+@media only screen and (max-width: 570px) {
+  .error_msg,
+  .success_msg {
+    width: 300px;
+  }
+}
 .error_msgNew,
 .success_msgNew {
   font-size: 14px;

@@ -42,7 +42,11 @@ export default function StoreFeeds(props) {
               <Posts />
             </>
           ) : (
-            'Please Login to see Store Feeds'
+            <>
+              {lang === 'EN'
+                ? 'Please Login to see Store Feeds'
+                : 'Kérjük, jelentkezzen be az áruház hírcsatornáinak megtekintéséhez'}
+            </>
           )}
         </div>
         <div className="feed_col_right">

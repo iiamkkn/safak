@@ -53,6 +53,7 @@ const Input = styled.input`
   border-radius: 4px;
   background-color: #ffffff;
   font-size: 14px;
+  ${mobile({ width: '300px' })}
 `;
 
 const Button = styled.button`

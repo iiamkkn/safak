@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { sliderItems } from './data';
 import { mobile, Mscreen } from '../../ResponsiveDesign/responsive';
 import { Link } from 'react-router-dom';
+
 const Container = styled.div`
   margin-top: 2px;
   width: 100%;

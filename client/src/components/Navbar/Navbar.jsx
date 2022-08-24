@@ -331,7 +331,11 @@ export const Navbar = () => {
             {!userInfo?.isSeller && (
               <Link to="/seller" style={{ textDecoration: 'none' }}>
                 <MenuItem>
-                  <div className="open_store_navbar">Open a Store</div>
+                  <div className="open_store_navbar">
+                    {lang === 'EN'
+                      ? 'Open a Store'
+                      : 'szeretnék online áruházat?'}
+                  </div>
                 </MenuItem>
               </Link>
             )}
@@ -623,7 +627,11 @@ export const Navbar = () => {
             {!userInfo?.isSeller && (
               <Link to="/seller" style={{ textDecoration: 'none' }}>
                 <MenuItem>
-                  <div className="open_store_navbar_mob">Open a Store</div>
+                  <div className="open_store_navbar_mob">
+                    {lang === 'EN'
+                      ? 'Open a Store'
+                      : 'szeretnék online áruházat?'}
+                  </div>
                 </MenuItem>
               </Link>
             )}

@@ -50,13 +50,12 @@ import StoreFeeds from './screens/Seller/StoreFeeds';
 import WishListScreen from './screens/others/WishListScreen';
 import SellerJoin from './screens/Auth/Seller_join';
 import SetSellerProfile from './screens/User/SetSellerProfile';
-import UserForgetPass from './components/NewsLetter/userForgetPass';
-import UserForgetPassUpdate from './components/NewsLetter/userForgetPassUpdate';
-import SellerVerification from './screens/User/sellerVerification';
-import { AxiosInstance } from './api/AxiosInstance';
 // const stripePromise = loadStripe(
 //   'pk_test_51LAKsWKyhm9yNLzHjKmiF9PQrUyVL1KwWeYduq27qKnnISsbBvpIoxCxtN9tGmdeM5fKQB7qXYtelTp93FzUoyE400VC1mA9wV'
 // );
+import UserForgetPass from './components/NewsLetter/userForgetPass';
+import UserForgetPassUpdate from './components/NewsLetter/userForgetPassUpdate';
+import SellerVerification from './screens/User/sellerVerification';
 const options = {
   style: {
     base: {
@@ -91,7 +90,7 @@ function App() {
     // store.dispatch(loadUser());
 
     async function getStripeApiKey() {
-      const { data } = await AxiosInstance.get('/api/cc/payment/process/pay');
+      const { data } = await axios.get('/api/cc/payment/process/pay');
       // console.log(data.stripeApiKey);
       setstripeapiKey(data.stripeApiKey);
     }
@@ -128,13 +127,11 @@ function App() {
         <Route path="/signup" element={<RegisterScreen />}></Route>
 
         <Route path="/seller" element={<SellerJoin />}></Route>
-        <Route path="/settings" exact element={<SetSellerProfile />}></Route>
+        <Route path="/settings" element={<SetSellerProfile />}></Route>
         <Route
           path="/store/verification"
-          exact
           element={<SellerVerification />}
         ></Route>
-
         {/* <Route path="/registerverify" element={<RegisterVerify />}></Route> */}
 
         {/* <Route path="/SignUpNew" element={<Signup />}></Route> */}
@@ -148,14 +145,14 @@ function App() {
           exact
           path="/users/:id/verify/:token"
           element={<EmailVerify />}
-        ></Route> */}
-        {/* <Route
+        ></Route>
+        <Route
           path="/authentication/activate/:token"
           element={<VerifyAccount />}
-        ></Route> */}
+        ></Route>
 
-        {/* <Route path="/forget/password" element={<ForgotPasswordPage />}></Route> */}
-        {/* <Route
+        <Route path="/forget/password" element={<ForgotPasswordPage />}></Route>
+        <Route
           exact
           path="/password/reset/:token"
           element={<NewPasswordPage />}

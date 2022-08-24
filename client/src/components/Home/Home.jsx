@@ -6,7 +6,7 @@ import Footer from '../Footer/Footer';
 import NewsLetter from '../NewsLetter/NewsLetter';
 import { Categories } from '../Categories/Categories';
 import HomeScreenProducts from '../../screens/others/HomeScreenProducts';
-// import ChatBox from '../ChatBox/ChatBox';
+import ChatBox from '../ChatBox/ChatBox';
 import { mobile, Mscreen } from '../../ResponsiveDesign/responsive';
 import styled from 'styled-components';
 

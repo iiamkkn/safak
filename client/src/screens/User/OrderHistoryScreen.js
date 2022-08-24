@@ -1,3 +1,247 @@
+// import React, { useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useNavigate, Link } from 'react-router-dom';
+// import { listOrderMine } from '../../actions/orderActions';
+// import LoadingBox from '../../components/LoadingBox/LoadingBox';
+// import MessageBox from '../../components/LoadingBox/MessageBox';
+// import Footer from '../../components/Footer/Footer';
+// import Navbar from '../../components/Navbar/Navbar';
+// import { Helmet } from 'react-helmet-async';
+// import '../CSS/ProductListScreen.css';
+// import Tippy from '@tippyjs/react';
+// import 'tippy.js/dist/tippy.css';
+
+// export default function OrderHistoryScreen(props) {
+//   const navigate = useNavigate();
+//   const orderMineList = useSelector((state) => state.orderMineList);
+//   const { loading, error, orders } = orderMineList;
+//   const dispatch = useDispatch();
+//   useEffect(() => {
+//     dispatch(listOrderMine());
+//   }, [dispatch]);
+//   const lang = localStorage.getItem('lang' || 'HU');
+//   // {lang === 'EN' ? 'English' : 'HUN'}
+//   return (
+//     <>
+//       <Navbar />
+
+//       <Helmet>
+//         <title>
+//           {lang === 'EN' ? 'Order History' : 'Rendelési előzmények'}
+//         </title>
+//       </Helmet>
+//       <div className="main-product-container">
+//         <h1 className="My_mob_store_history">
+//           {lang === 'EN' ? 'My Order History' : 'Rendelésem története'}
+//         </h1>
+//         {loading ? (
+//           <LoadingBox></LoadingBox>
+//         ) : error ? (
+//           <MessageBox variant="danger">{error}</MessageBox>
+//         ) : (
+//           <>
+//             <div className="tableDiv">
+//               <table className="table">
+//                 <thead>
+//                   <tr>
+//                     <th>ID</th>
+//                     {/* <th>{lang === 'EN' ? 'USER' : 'FELHASZNÁLÓ'}</th> */}
+
+//                     <th>{lang === 'EN' ? 'DATE' : 'DÁTUM'}</th>
+//                     <th>{lang === 'EN' ? 'TOTAL PRICE' : 'TELJES ÁR'}</th>
+//                     <th>{lang === 'EN' ? 'PAID' : 'FIZETETT'}</th>
+//                     <th>{lang === 'EN' ? 'DELIVERED' : 'SZÁLLÍTVA'}</th>
+//                     <th>
+//                       <div className="buttonsRow">
+//                         {lang === 'EN' ? 'ACTIONS' : 'AKCIÓK'}
+//                       </div>
+//                     </th>
+//                   </tr>
+//                 </thead>
+//                 <tbody>
+//                   {orders.map((order) => (
+//                     <tr key={order._id}>
+//                       <td>{order._id}</td>
+//                       {/* <td>
+//                           {order.user?.name ? (
+//                             order.user?.name
+//                           ) : (
+//                             <>
+//                               <span
+//                                 style={{
+//                                   color: 'rgb(94 94 94',
+//                                   fontWeight: 'bold',
+//                                 }}
+//                               >
+//                                 {lang === 'EN' ? 'No Name' : 'Névtelen'}
+//                               </span>
+//                             </>
+//                           )}
+//                         </td> */}
+//                       <td>{order.createdAt.substring(0, 10)}</td>
+//                       <td>{order.totalPrice.toFixed(2)}</td>
+//                       <td>
+//                         {order.isPaid ? (
+//                           <>
+//                             {lang === 'EN' ? 'Yes' : 'Igen'}
+//                             <Tippy
+//                               content={order.paidAt.substring(0, 10)}
+//                               placement="top"
+//                             >
+//                               <i className="fa-regular fa-circle-check UI_icon_small_tick"></i>
+//                             </Tippy>
+//                           </>
+//                         ) : (
+//                           <>
+//                             {lang === 'EN' ? 'No' : 'Nem'}
+//                             <Tippy content="Not Paid" placement="top">
+//                               <i class="fa-regular fa-circle-xmark UI_icon_small_cross"></i>
+//                             </Tippy>
+//                           </>
+//                         )}
+//                       </td>
+//                       <td>
+//                         {order.isDelivered ? (
+//                           <>
+//                             {lang === 'EN' ? 'Yes' : 'Igen'}
+//                             <Tippy
+//                               content={order.deliveredAt.substring(0, 10)}
+//                               placement="top"
+//                             >
+//                               <i className="fa-regular fa-circle-check UI_icon_small_tick"></i>
+//                             </Tippy>
+//                           </>
+//                         ) : (
+//                           <>
+//                             {lang === 'EN' ? 'No' : 'Nem'}
+//                             <Tippy content="Not Delivered" placement="top">
+//                               <i class="fa-regular fa-circle-xmark UI_icon_small_cross"></i>
+//                             </Tippy>
+//                           </>
+//                         )}
+//                       </td>
+//                       <td>
+//                         <button
+//                           type="button"
+//                           className="small"
+//                           onClick={() => {
+//                             navigate(`/order/${order._id}`);
+//                           }}
+//                         >
+//                           {lang === 'EN' ? 'Details' : 'Részletek'}
+//                           <i className="fas regular fa-circle-info UI_icon_small"></i>
+//                         </button>
+//                       </td>
+//                     </tr>
+//                   ))}
+//                 </tbody>
+//               </table>
+//             </div>
+//             {/* tableDiv for mobile View */}
+//             <div className="tableDiv_mobile">
+//               {orders.map((order) => (
+//                 <div key={order._id} className="tableDiv_mobile_main_container">
+//                   <div className="tableDiv_top">
+//                     {/* <div>
+//                       <b style={{ color: 'rgb(94 94 94 ' }}>
+//                         {' '}
+//                         {lang === 'EN' ? 'Buyer → ' : 'Vevő → '}
+//                       </b>
+
+//                       <span className="top_product_Link_mob">
+//                         {order.user?.name ? (
+//                           order.user?.name
+//                         ) : (
+//                           <>
+//                             <span
+//                               style={{
+//                                 color: 'rgb(94 94 94',
+//                                 fontWeight: 'bold',
+//                               }}
+//                             >
+//                               {lang === 'EN' ? 'No Name ' : 'Névtelen '}
+//                             </span>
+//                           </>
+//                         )}
+//                       </span>
+//                     </div> */}
+//                     <div className="smallFont_mob">
+//                       {' '}
+//                       {lang === 'EN' ? 'Order ' : 'Rendelés '} Id: {order._id}
+//                     </div>
+//                   </div>
+//                   <div className="tableDiv_bottom">
+//                     <div>
+//                       {/* Price:  */}
+//                       <b>{order.totalPrice.toFixed(2)} HUF</b>
+//                     </div>
+//                   </div>
+//                   <div className="tableDiv_bottom">
+//                     <div className="smallFont_mob">
+//                       <b>{lang === 'EN' ? 'Paid' : 'Fizetett'}: </b>
+//                       {order.isPaid ? (
+//                         <>
+//                           {lang === 'EN' ? 'Yes at ' : 'Igen '}
+//                           {order.createdAt.substring(0, 10)}
+//                           <Tippy
+//                             content={order.paidAt.substring(0, 10)}
+//                             placement="top"
+//                           >
+//                             <i className="fa-regular fa-circle-check UI_icon_small_tick"></i>
+//                           </Tippy>
+//                         </>
+//                       ) : (
+//                         <>
+//                           {lang === 'EN' ? 'No ' : 'Nem '}
+//                           <Tippy content="Not Paid" placement="top">
+//                             <i class="fa-regular fa-circle-xmark UI_icon_small_cross"></i>
+//                           </Tippy>
+//                         </>
+//                       )}
+//                     </div>
+//                     <div className="smallFont_mob">
+//                       <b>{lang === 'EN' ? 'Delivered ' : 'Szállítva '}: </b>{' '}
+//                       {order.isDelivered ? (
+//                         <>
+//                           {lang === 'EN' ? 'Yes ' : 'Igen '}
+//                           <Tippy
+//                             content={order.deliveredAt.substring(0, 10)}
+//                             placement="top"
+//                           >
+//                             <i className="fa-regular fa-circle-check UI_icon_small_tick"></i>
+//                           </Tippy>
+//                         </>
+//                       ) : (
+//                         <>
+//                           {lang === 'EN' ? 'No ' : 'Nem '}
+//                           <Tippy content="Not Delivered" placement="top">
+//                             <i class="fa-regular fa-circle-xmark UI_icon_small_cross"></i>
+//                           </Tippy>
+//                         </>
+//                       )}
+//                     </div>
+//                   </div>
+//                   <div className="buttonsRow_mob">
+//                     <button type="button" className="top_mob_buttons">
+//                       <Link
+//                         to={`/order/${order._id}`}
+//                         className="top_product_Link_mob"
+//                       >
+//                         <i class="fa-solid fa-eye"></i>
+//                       </Link>
+//                     </button>
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </>
+//         )}
+//       </div>
+//       <Footer />
+//     </>
+//   );
+// }
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';

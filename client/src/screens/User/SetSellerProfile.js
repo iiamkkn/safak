@@ -14,7 +14,6 @@ import OnlyLoading from '../../components/LoadingBox/OnlyLoading';
 import axios from 'axios';
 import { getError } from '../../utils';
 import { ToastContainer, toast } from 'react-toastify';
-import { AxiosInstance } from '../../api/AxiosInstance';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -46,7 +45,15 @@ const reducer = (state, action) => {
 };
 
 export default function SetSellerProfile() {
+  // const { state, dispatch: ctxDispatch } = useContext(Store);
+  // const { userInfo } = state;
   const [ProductIMGsaved, setProductIMGsaved] = useState('');
+
+  const [name, setName] = useState('');
+  const [image, setImage] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const [sellerName, setSellerName] = useState('');
   const [sellerLogo, setSellerLogo] = useState('');
@@ -74,6 +81,9 @@ export default function SetSellerProfile() {
       dispatch({ type: USER_UPDATE_PROFILE_RESET });
       dispatch(detailsUser(userInfo._id));
     } else {
+      setName(user.name);
+      setEmail(user.email);
+      setImage(user.image);
       if (user.seller) {
         setSellerName(user.seller.name);
         setSellerLogo(user.seller.logo);
@@ -109,6 +119,10 @@ export default function SetSellerProfile() {
     dispatch(
       updateUserProfile({
         userId: user._id,
+        name,
+        image,
+        email,
+        password,
         sellerName,
         sellerLogo,
         sellerCover,
@@ -125,16 +139,12 @@ export default function SetSellerProfile() {
     bodyFormData.append('file', file);
     try {
       dispatch1({ type: 'UPLOAD_REQUEST' });
-      const { data } = await AxiosInstance.post(
-        '/api/upload/image',
-        bodyFormData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
+      const { data } = await axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       dispatch1({ type: 'UPLOAD_SUCCESS' });
 
       setSellerLogo(data.secure_url);
@@ -165,16 +175,12 @@ export default function SetSellerProfile() {
     bodyFormData.append('file', file);
     try {
       dispatch1({ type: 'UPLOAD_REQUEST' });
-      const { data } = await AxiosInstance.post(
-        '/api/upload/image',
-        bodyFormData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
+      const { data } = await axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       dispatch1({ type: 'UPLOAD_SUCCESS' });
 
       setSellerCover(data.secure_url);
@@ -199,7 +205,42 @@ export default function SetSellerProfile() {
       dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
     }
   };
+  const uploadFileHandlerUserImgae = async (e, forImages) => {
+    const file = e.target.files[0];
+    const bodyFormData = new FormData();
+    bodyFormData.append('file', file);
+    try {
+      dispatch1({ type: 'UPLOAD_REQUEST' });
+      const { data } = await axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      dispatch1({ type: 'UPLOAD_SUCCESS' });
 
+      setImage(data.secure_url);
+
+      // else {
+      //   setImage(data.secure_url);
+      // }
+      if (lang === 'EN') {
+        setProductIMGsaved(
+          'Image uploaded successfully. Click to save the product.'
+        );
+      }
+      if (lang === 'HU') {
+        setProductIMGsaved(
+          'A kép sikeresen feltöltve. Kattintson a termék mentéséhez.'
+        );
+      }
+
+      // setImage(data.secure_url);
+    } catch (err) {
+      toast.error(getError(err));
+      dispatch({ type: 'UPLOAD_FAIL', payload: getError(err) });
+    }
+  };
   const lang = localStorage.getItem('lang' || 'HU');
   // {lang === 'EN' ? 'English' : 'HUN'}
   return (

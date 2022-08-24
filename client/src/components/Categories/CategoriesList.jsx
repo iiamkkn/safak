@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { AxiosInstance } from '../../api/AxiosInstance';
 import { getError } from '../../utils';
 import './Categories.css';
 
@@ -12,7 +11,7 @@ export const CategoriesList = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await AxiosInstance.get(`/api/products/categories`);
+        const { data } = await axios.get(`/api/products/categories`);
         setCategories(data);
       } catch (err) {
         toast.error(getError(err));

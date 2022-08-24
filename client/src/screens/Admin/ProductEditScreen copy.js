@@ -6,7 +6,6 @@ import LoadingBox from '../../components/LoadingBox/LoadingBox';
 import MessageBox from '../../components/LoadingBox/MessageBox';
 import { PRODUCT_UPDATE_RESET } from '../../constants/productConstants';
 import Axios from 'axios';
-import { AxiosInstance } from '../../api/AxiosInstance';
 export default function ProductEditScreen(props) {
   const navigate = useNavigate();
 
@@ -78,16 +77,12 @@ export default function ProductEditScreen(props) {
     bodyFormData.append('file', file);
     setLoadingUpload(true);
     try {
-      const { data } = await AxiosInstance.post(
-        '/api/upload/image',
-        bodyFormData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
+      const { data } = await Axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       setImage(data);
       setLoadingUpload(false);
     } catch (error) {

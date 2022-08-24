@@ -16,7 +16,6 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import { mobile, Mscreen } from '../../ResponsiveDesign/responsive';
-import { AxiosInstance } from '../../api/AxiosInstance';
 
 const MainContainer = styled.div`
   display: flex;
@@ -211,7 +210,7 @@ function WishListScreen() {
     wishlist: { wishistItem },
   } = wstate;
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await AxiosInstance.get(`/api/products/${item._id}`);
+    const { data } = await axios.get(`/api/products/${item._id}`);
     if (data.countInStock < quantity) {
       toast(
         'Sorry. No more Products are available. We have reached the Stock Limit. More Products cannot be added at the moment.'

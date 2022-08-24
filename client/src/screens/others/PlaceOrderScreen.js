@@ -191,7 +191,6 @@ import Axios from 'axios';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import { useSelector } from 'react-redux';
-import { AxiosInstance } from '../../api/AxiosInstance';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -234,7 +233,7 @@ export default function PlaceOrderScreen() {
     try {
       dispatch({ type: 'CREATE_REQUEST' });
 
-      const { data } = await AxiosInstance.post(
+      const { data } = await Axios.post(
         '/api/orders',
         {
           orderItems: cart.cartItems,
@@ -464,9 +463,9 @@ export default function PlaceOrderScreen() {
                         disabled={cart.cartItems.length === 0 || loading}
                       >
                         {lang === 'EN' ? (
-                          <>loading? 'Loading...' : 'Continue'</>
+                          <>{loading ? 'Loading...' : 'Continue'}</>
                         ) : (
-                          <>loading? 'Loading...' : 'Folytatni'</>
+                          <>{loading ? 'Loading...' : 'Folytatni'}</>
                         )}
                         <i className="bx bx-right-arrow-alt"></i>
                       </button>
@@ -626,7 +625,11 @@ export default function PlaceOrderScreen() {
                   className="primary-block primary block"
                   disabled={cart.cartItems.length === 0 || loading}
                 >
-                  {lang === 'EN' ? 'Continue' : 'Folytatni'}
+                  {lang === 'EN' ? (
+                    <>{loading ? 'Loading...' : 'Continue'}</>
+                  ) : (
+                    <>{loading ? 'Loading...' : 'Folytatni'}</>
+                  )}
                   <i className="bx bx-right-arrow-alt"></i>
                 </button>
               </li>

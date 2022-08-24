@@ -22,7 +22,7 @@ export const EmailVerify = () => {
 
       try {
         console.log('fetching_after');
-        const url = `http://91.227.139.152/api/account/${param.id}/verify/${param.token}`;
+        const url = `http://localhost:5000/api/account/${param.id}/verify/${param.token}`;
         const { data } = await axios.get(url, {
           headers: { 'Content-Type': 'application/json' },
         });

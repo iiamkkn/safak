@@ -21,7 +21,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = 'http://91.227.139.152/api/account/signup/user_verify';
+      const url = 'http://localhost:5000/api/account/signup/user_verify';
       const { data: res } = await axios.post(url, data);
       setMsg(res.message);
       setError('');
@@ -93,7 +93,7 @@ const Signup = () => {
               name="password"
               onChange={handleChange}
               value={data.password}
-              // required
+              required
               className={styles.input}
             />
             {error && <div className={styles.error_msg}>{error}</div>}

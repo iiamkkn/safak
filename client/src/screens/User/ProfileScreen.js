@@ -14,7 +14,6 @@ import OnlyLoading from '../../components/LoadingBox/OnlyLoading';
 import axios from 'axios';
 import { getError } from '../../utils';
 import { ToastContainer, toast } from 'react-toastify';
-import { AxiosInstance } from '../../api/AxiosInstance';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -139,16 +138,12 @@ export default function ProfileScreen() {
     bodyFormData.append('file', file);
     try {
       dispatch1({ type: 'UPLOAD_REQUEST' });
-      const { data } = await AxiosInstance.post(
-        '/api/upload/image',
-        bodyFormData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
+      const { data } = await axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       dispatch1({ type: 'UPLOAD_SUCCESS' });
 
       setSellerLogo(data.secure_url);
@@ -179,16 +174,12 @@ export default function ProfileScreen() {
     bodyFormData.append('file', file);
     try {
       dispatch1({ type: 'UPLOAD_REQUEST' });
-      const { data } = await AxiosInstance.post(
-        '/api/upload/image',
-        bodyFormData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
+      const { data } = await axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       dispatch1({ type: 'UPLOAD_SUCCESS' });
 
       setSellerCover(data.secure_url);
@@ -219,16 +210,12 @@ export default function ProfileScreen() {
     bodyFormData.append('file', file);
     try {
       dispatch1({ type: 'UPLOAD_REQUEST' });
-      const { data } = await AxiosInstance.post(
-        '/api/upload/image',
-        bodyFormData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
+      const { data } = await axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       dispatch1({ type: 'UPLOAD_SUCCESS' });
 
       setImage(data.secure_url);

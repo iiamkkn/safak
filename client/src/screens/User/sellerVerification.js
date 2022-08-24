@@ -16,7 +16,6 @@ import { getError } from '../../utils';
 import { ToastContainer, toast } from 'react-toastify';
 import { getAllUser } from '../../api/zain/UserRequests';
 import { countries } from 'countries-list';
-import { AxiosInstance } from '../../api/AxiosInstance';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -148,16 +147,12 @@ export default function SellerVerification() {
     bodyFormData.append('file', file);
     try {
       dispatch1({ type: 'UPLOAD_REQUEST' });
-      const { data } = await AxiosInstance.post(
-        '/api/upload/image',
-        bodyFormData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
+      const { data } = await axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       dispatch1({ type: 'UPLOAD_SUCCESS' });
 
       setFront(data.secure_url);
@@ -188,16 +183,12 @@ export default function SellerVerification() {
     bodyFormData.append('file', file);
     try {
       dispatch1({ type: 'UPLOAD_REQUEST' });
-      const { data } = await AxiosInstance.post(
-        '/api/upload/image',
-        bodyFormData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            authorization: `Bearer ${userInfo.token}`,
-          },
-        }
-      );
+      const { data } = await axios.post('/api/upload/image', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${userInfo.token}`,
+        },
+      });
       dispatch1({ type: 'UPLOAD_SUCCESS' });
 
       setBack(data.secure_url);

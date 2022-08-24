@@ -29,27 +29,29 @@ export const BottomMenu = ({ toggleSIdebar }) => {
   return (
     <>
       <div className="Botom_menu_container">
-        <div>
-          {userInfo && (
-            <>
-              <Link to="/feeds" className="CartBadgeColor">
+        <Link to="/feeds" className="CartBadgeColor">
+          {' '}
+          <div>
+            {userInfo && (
+              <>
                 <Tippy content="Store Feeds" placement="top">
                   <FeedOutlinedIcon />
                 </Tippy>
-              </Link>
-            </>
-          )}
-        </div>
-        <div>
-          <Link to="/index" className="CartBadgeColor">
+              </>
+            )}
+          </div>{' '}
+        </Link>
+
+        <Link to="/index" className="CartBadgeColor">
+          {' '}
+          <div>
             <Tippy content="Home" placement="top">
               <HomeOutlinedIcon />
             </Tippy>
-          </Link>
-        </div>
-
-        <div>
-          <Link to="/cart" className="CartBadgeColor">
+          </div>
+        </Link>
+        <Link to="/cart" className="CartBadgeColor">
+          <div>
             <Tippy content="Cart" placement="top">
               <ShoppingCartOutlinedIcon />
             </Tippy>
@@ -61,10 +63,10 @@ export const BottomMenu = ({ toggleSIdebar }) => {
                 className="CartBadge"
               ></Badge>
             )}
-          </Link>
-        </div>
-        <div>
-          <Link to="/wishlist" className="CartBadgeColor">
+          </div>
+        </Link>
+        <Link to="/wishlist" className="CartBadgeColor">
+          <div>
             {' '}
             <Tippy content="Wishlist" placement="top">
               <FavoriteBorderOutlinedIcon />
@@ -74,8 +76,8 @@ export const BottomMenu = ({ toggleSIdebar }) => {
               color="primary"
               className="WishListBadge"
             />
-          </Link>
-        </div>
+          </div>
+        </Link>
         <div>
           {' '}
           {userInfo ? (

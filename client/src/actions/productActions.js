@@ -1,5 +1,4 @@
 import Axios from 'axios';
-// import { AxiosInstance } from '../api/AxiosInstance';
 
 import {
   PRODUCT_CREATE_FAIL,

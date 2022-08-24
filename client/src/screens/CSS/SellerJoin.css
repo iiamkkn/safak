@@ -760,7 +760,7 @@ form .Signinpage_seller .field_seller button:hover {
     text-transform: capitalize;
   }
   .item_list_seller_store {
-    width: 95%;
+    width: 98%;
     justify-content: flex-start;
   }
 }
