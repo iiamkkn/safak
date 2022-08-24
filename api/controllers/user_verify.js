@@ -77,6 +77,7 @@ function mailgun() {
 //     // });
 //   });
 // };
+
 async function SignUp_user_verify(req, res) {
   try {
     // const { error } = validate(req.body);
