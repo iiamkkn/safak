@@ -65,14 +65,13 @@ function isSellerOrAdmin(req, res, next) {
 
 /// sending email notification on each paid purchase
 
-function mailgun() {
+const mailgun = () =>
   mg({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
   });
-}
 
-function payOrderEmailTemplate(order) {
+const payOrderEmailTemplate = (order) => {
   return `
   
   <div style="background-color: #fff; padding: 7px;">
@@ -200,7 +199,7 @@ function payOrderEmailTemplate(order) {
 
  </div>
   `;
-}
+};
 
 module.exports = {
   generateToken,
