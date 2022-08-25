@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 // const sendEmail = require('../utils/sendEmail');
 const mg = require('mailgun-js');
+// const { mailgun } = require('../utils');
 const expressAsyncHandler = require('express-async-handler');
 const sendToken = require('../utils/jwtToken');
 const ErrorHandler = require('../utils/errorHandler');

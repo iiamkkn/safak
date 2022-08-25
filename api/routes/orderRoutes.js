@@ -8,7 +8,7 @@ const {
   isAuth,
   isSellerOrAdmin,
   isAdmin,
-  mailgun,
+  // mailgun,
   payOrderEmailTemplate,
 } = require('../utils');
 

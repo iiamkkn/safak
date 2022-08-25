@@ -7,4 +7,4 @@ function mailgun() {
   });
 }
 
-module.exports = { mailgun };
+module.exports = mailgun;
