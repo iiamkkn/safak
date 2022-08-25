@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs');
+import bcrypt from 'bcryptjs';
 
-const data = {
+export const data = {
   users: [
     {
       name: 'Khushal Khan',
@@ -204,7 +204,7 @@ const data = {
   ],
 };
 
-const sliderItems = [
+export const sliderItems = [
   {
     id: 1,
     img: 'https://i.ibb.co/DG69bQ4/2.png',
@@ -242,4 +242,4 @@ const sliderItems = [
   },
 ];
 
-module.exports = { data, sliderItems };
+export default data;

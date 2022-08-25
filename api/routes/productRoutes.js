@@ -1,15 +1,19 @@
-const productRouter = require('express').Router();
-const expressAsyncHandler = require('express-async-handler');
-const {
+import express from 'express';
+import Product from '../models/productModel.js';
+import expressAsyncHandler from 'express-async-handler';
+import { isAdmin, isAuth, isSellerOrAdmin } from '../utils.js';
+import {
   createPost,
-  getPost,
-  updatePost,
   deletePost,
-  likePost,
+  getPost,
   getTimelinePosts,
-} = require('../controllers/PostController');
-const Product = require('../models/productModel');
-const { isAuth, isSellerOrAdmin, isAdmin } = require('../utils');
+  likePost,
+  updatePost,
+} from '../controllers/PostController.js';
+// import { authorizeRoles, isAuthenticatedUser } from '../middleware/auth.js';
+// import ROLES_LIST from '../config/roles_list.js';
+
+const productRouter = express.Router();
 
 productRouter.get(
   '/',
@@ -33,6 +37,7 @@ productRouter.get(
 productRouter.post(
   '/',
   isAuth,
+  // isAdmin,
   isSellerOrAdmin,
   expressAsyncHandler(async (req, res) => {
     const newProduct = new Product({
@@ -269,6 +274,7 @@ productRouter.get('/:id', async (req, res) => {
 });
 
 // Zain
+
 productRouter.post('/zain', createPost);
 productRouter.get('/zain/:id', getPost);
 productRouter.put('/zain/:id', updatePost);
@@ -276,4 +282,4 @@ productRouter.delete('/zain/:id', deletePost);
 productRouter.put('/zain/:id/like', likePost);
 productRouter.get('/zain/:id/timeline', getTimelinePosts);
 
-module.exports = productRouter;
+export default productRouter;

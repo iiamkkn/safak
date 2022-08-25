@@ -1,24 +1,18 @@
-const orderRouter = require('express').Router();
-
-const expressAsyncHandler = require('express-async-handler');
-const Order = require('../models/orderModel');
-const User = require('../models/userModel');
-const Product = require('../models/productModel');
-const {
+import express from 'express';
+import expressAsyncHandler from 'express-async-handler';
+import Order from '../models/orderModel.js';
+import {
   isAuth,
-  isSellerOrAdmin,
   isAdmin,
+  isSellerOrAdmin,
   mailgun,
   payOrderEmailTemplate,
-} = require('../utils');
+} from '../utils.js';
+import User from '../models/userModel.js';
+import Product from '../models/productModel.js';
 
-// const mg = require('mailgun-js');
+const orderRouter = express.Router();
 
-// const mailgun = () =>
-//   mg({
-//     apiKey: process.env.MAILGUN_API_KEY,
-//     domain: process.env.MAILGUN_DOMAIN,
-//   });
 // Get and List all orders
 orderRouter.get(
   '/',
@@ -273,4 +267,4 @@ orderRouter.delete(
     }
   })
 );
-module.exports = { orderRouter };
+export default orderRouter;

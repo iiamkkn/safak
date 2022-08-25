@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const ShippingAddressSchema = new mongoose.Schema(
   {
@@ -13,4 +13,8 @@ const ShippingAddressSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('ShippingAddress', ShippingAddressSchema);
+const ShippingAddress = mongoose.model(
+  'ShippingAddress',
+  ShippingAddressSchema
+);
+export default ShippingAddress;

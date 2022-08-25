@@ -1,11 +1,12 @@
-const uploadRouter = require('express').Router();
-const multer = require('multer');
-const cloudinary = require('cloudinary');
-const streamifier = require('streamifier');
-const { isAuth } = require('../utils');
+import express from 'express';
+import multer from 'multer';
+import { v2 as cloudinary } from 'cloudinary';
+import streamifier from 'streamifier';
+import { isAuth, isSellerOrAdmin } from '../utils.js';
 
-// import { v2 as cloudinary } from 'cloudinary';
 const upload = multer();
+
+const uploadRouter = express.Router();
 
 uploadRouter.post(
   '/image',
@@ -52,4 +53,4 @@ uploadRouter.post(
 //     console.error(error);
 //   }
 // });
-module.exports = uploadRouter;
+export default uploadRouter;

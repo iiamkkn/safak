@@ -1,8 +1,10 @@
-const PaymentRouter = require('express').Router();
-const {
+import express from 'express';
+import {
   processPaymentStripe,
   sendStripeApi,
-} = require('../controllers/paymentController');
+} from '../controllers/paymentController.js';
+
+const PaymentRouter = express.Router();
 
 // Stripe Credit Card
 PaymentRouter.post('/cc/payment/process', processPaymentStripe);
@@ -14,4 +16,4 @@ PaymentRouter.get('/cc/payment/process/pay', sendStripeApi);
 // PaymentRouter.get('/generate/bt_token', generatePayToken);
 // PaymentRouter.post('/process/BTpayment', processBTPayment);
 
-module.exports = PaymentRouter;
+export default PaymentRouter;

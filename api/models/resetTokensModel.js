@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const resetTokensSchema = new mongoose.Schema({
   token: {
@@ -17,5 +17,6 @@ const resetTokensSchema = new mongoose.Schema({
   // can be a bit delay, because the bg thread runs every 60 minutes
   expire_at: { type: Date, default: Date.now, expires: 60 * 60 * 1000 },
 });
+const resetToken = mongoose.model('resetToken', resetTokensSchema);
 
-module.exports = mongoose.model('resetToken', resetTokensSchema);
+export default resetToken;

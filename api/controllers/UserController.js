@@ -1,19 +1,19 @@
-const User = require('../models/userModel');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-// const nodemailer = require('nodemailer');
-const mg = require('mailgun-js');
-// const UserVerification = require('../models/userVerificationModel');
-// const { v4: uuidv4 } = require('uuid');
+import User from '../models/userModel.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import mg from 'mailgun-js';
+import UserVerification from '../models/userVerificationModel.js';
+import nodemailer from 'nodemailer';
+import { v4 as uuidv4 } from 'uuid';
 
-function mailgun() {
+export const mailgun = () =>
   mg({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
   });
-}
+
 // Get a User
-async function getUser(req, res) {
+export const getUser = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -28,10 +28,10 @@ async function getUser(req, res) {
   } catch (error) {
     res.status(500).json(error);
   }
-}
+};
 
 // Get all users
-async function getAllUsers(req, res) {
+export const getAllUsers = async (req, res) => {
   try {
     let users = await User.find();
     users = users.map((user) => {
@@ -42,11 +42,11 @@ async function getAllUsers(req, res) {
   } catch (error) {
     res.status(500).json(error);
   }
-}
+};
 
 // udpate a user
 
-async function updateUser(req, res) {
+export const updateUser = async (req, res) => {
   const id = req.params.id;
   // console.log("Data Received", req.body)
   const { _id, currentUserAdmin, password } = req.body;
@@ -78,10 +78,10 @@ async function updateUser(req, res) {
       .status(403)
       .json('Access Denied! You can update only your own Account.');
   }
-}
+};
 
 // Delete a user
-async function deleteUser(req, res) {
+export const deleteUser = async (req, res) => {
   const id = req.params.id;
 
   const { currentUserId, currentUserAdmin } = req.body;
@@ -96,11 +96,11 @@ async function deleteUser(req, res) {
   } else {
     res.status(403).json('Access Denied!');
   }
-}
+};
 
 // Follow a User
 // changed
-async function followUser(req, res) {
+export const followUser = async (req, res) => {
   const id = req.params.id;
   const { _id } = req.body;
   // console.log(id, _id);
@@ -123,11 +123,11 @@ async function followUser(req, res) {
       res.status(500).json(error);
     }
   }
-}
+};
 
 // Unfollow a User
 // changed
-async function unfollowUser(req, res) {
+export const unfollowUser = async (req, res) => {
   const id = req.params.id;
   const { _id } = req.body;
 
@@ -149,9 +149,9 @@ async function unfollowUser(req, res) {
       res.status(500).json(error);
     }
   }
-}
+};
 
-async function activateAccount(req, res, next) {
+export const activateAccount = async (req, res, next) => {
   const { RegisterverifyToken } = req.params;
   if (RegisterverifyToken) {
     jwt.verify(
@@ -216,7 +216,7 @@ async function activateAccount(req, res, next) {
       error: 'An error occurred while activating the account.',
     });
   }
-}
+};
 
 // const transporter = nodemailer.createTransport({
 //   service: 'gmail',
@@ -237,7 +237,7 @@ async function activateAccount(req, res, next) {
 // });
 //  New SignUp
 
-async function NewSignUp(req, res) {
+export const NewSignUp = async (req, res) => {
   let { name, email, password, username, dateOfBirth } = req.body;
   name = name.trim();
   email = email.trim();
@@ -335,9 +335,9 @@ async function NewSignUp(req, res) {
         });
       });
   }
-}
+};
 
-async function NewSignIn(req, res) {
+export const NewSignIn = async (req, res) => {
   let { email, password } = req.body;
   email = email.trim();
   password = password.trim();
@@ -388,17 +388,4 @@ async function NewSignIn(req, res) {
         });
       });
   }
-}
-
-module.exports = {
-  mailgun,
-  getUser,
-  getAllUsers,
-  updateUser,
-  deleteUser,
-  followUser,
-  unfollowUser,
-  activateAccount,
-  NewSignUp,
-  NewSignIn,
 };

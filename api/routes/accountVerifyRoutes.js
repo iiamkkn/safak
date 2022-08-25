@@ -1,12 +1,13 @@
-const VerifyRouter = require('express').Router();
-
-const {
+import express from 'express';
+import {
   SignUp_user_verify,
-  Subscribe_newsLetter,
   SignUp_Link_verification,
+  Subscribe_newsLetter,
   user_forgetpass,
   user_forgetpass_update,
-} = require('../controllers/user_verify');
+} from '../controllers/user_verify.js';
+
+const VerifyRouter = express.Router();
 
 // /api/account/signup/user_verify
 
@@ -23,4 +24,4 @@ VerifyRouter.put(
   user_forgetpass_update
 );
 
-module.exports = VerifyRouter;
+export default VerifyRouter;

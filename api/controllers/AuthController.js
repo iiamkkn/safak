@@ -1,22 +1,23 @@
-const User = require('../models/userModel');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const expressAsyncHandler = require('express-async-handler');
-const cloudinary = require('cloudinary');
-const crypto = require('crypto');
-const mg = require('mailgun-js');
-const ErrorHandler = require('../utils/errorHandler');
-const sendToken = require('../utils/jwtToken');
+import User from '../models/userModel.js';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import expressAsyncHandler from 'express-async-handler';
+import sendToken from '../utils/jwtToken.js';
+import sendEmail from '../utils/sendEmail.js';
+import ErrorHandler from '../utils/errorHandler.js';
+import cloudinary from 'cloudinary';
+import crypto from 'crypto';
+import mg from 'mailgun-js';
 
 // forgetPassword
-function mailgun() {
+
+export const mailgun = () =>
   mg({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
   });
-}
 
-async function forgetPassword(req, res) {
+export const forgetPassword = async (req, res) => {
   const { email } = req.body;
   User.findOne({ email: email }, (err, user) => {
     if (err || !user) {
@@ -54,12 +55,12 @@ async function forgetPassword(req, res) {
       }
     });
   });
-}
+};
 
 /////////////////////////////// forgetPassword ends
 
 // Register new user
-async function registerUser(req, res) {
+export const registerUser = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hashedPass = await bcrypt.hash(req.body.password, salt);
   req.body.password = hashedPass;
@@ -83,12 +84,12 @@ async function registerUser(req, res) {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-}
+};
 
 // Login User
 
 // Changed
-async function loginUser(req, res) {
+export const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -113,12 +114,12 @@ async function loginUser(req, res) {
   } catch (err) {
     res.status(500).json(err);
   }
-}
+};
 
 // This is v1 coding
 
 // Register a user   => /api/v1/register
-async function registerUserv1(req, res, next) {
+export const registerUserv1 = expressAsyncHandler(async (req, res, next) => {
   const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
     folder: 'avatars',
     width: 150,
@@ -139,10 +140,10 @@ async function registerUserv1(req, res, next) {
   });
 
   sendToken(user, 200, res);
-}
+});
 
 // Login User  =>  /a[i/v1/login
-async function loginUserv1(req, res, next) {
+export const loginUserv1 = expressAsyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
   // Checks if email and password is entered by user
@@ -165,10 +166,10 @@ async function loginUserv1(req, res, next) {
   }
 
   sendToken(user, 200, res);
-}
+});
 
 // Forgot Password   =>  /api/v1/password/reset
-async function forgotPasswordv1(req, res, next) {
+export const forgotPasswordv1 = expressAsyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
@@ -229,10 +230,10 @@ async function forgotPasswordv1(req, res, next) {
 
     return next(new ErrorHandler(error.message, 500));
   }
-}
+});
 
 // Reset Password   =>  /api/v1/password/reset/:token
-async function resetPasswordv1(req, res, next) {
+export const resetPasswordv1 = expressAsyncHandler(async (req, res, next) => {
   // Hash URL token
   const resetPasswordToken = crypto
     .createHash('sha256')
@@ -266,20 +267,20 @@ async function resetPasswordv1(req, res, next) {
   await user.save();
 
   sendToken(user, 200, res);
-}
+});
 
 // Get currently logged in user details   =>   /api/v1/me
-async function getUserProfilev1(req, res, next) {
+export const getUserProfilev1 = expressAsyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id);
 
   res.status(200).json({
     success: true,
     user,
   });
-}
+});
 
 // Update / Change password   =>  /api/v1/password/update
-async function updatePasswordv1(req, res, next) {
+export const updatePasswordv1 = expressAsyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user.id).select('+password');
 
   // Check previous user password
@@ -292,10 +293,10 @@ async function updatePasswordv1(req, res, next) {
   await user.save();
 
   sendToken(user, 200, res);
-}
+});
 
 // Update user profile   =>   /api/v1/me/update
-async function updateProfilev1(req, res, next) {
+export const updateProfilev1 = expressAsyncHandler(async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
@@ -329,10 +330,10 @@ async function updateProfilev1(req, res, next) {
   res.status(200).json({
     success: true,
   });
-}
+});
 
 // Logout user   =>   /api/v1/logout
-async function logoutv1(req, res, next) {
+export const logoutv1 = expressAsyncHandler(async (req, res, next) => {
   // const userById = await User.find({ _id: req.params._id });
   res.cookie('token', null, {
     expires: new Date(Date.now()),
@@ -343,22 +344,22 @@ async function logoutv1(req, res, next) {
     success: true,
     message: 'Logged out',
   });
-}
+});
 
 // Admin Routes
 
 // Get all users   =>   /api/v1/admin/users
-async function allUsersv1(req, res, next) {
+export const allUsersv1 = expressAsyncHandler(async (req, res, next) => {
   const users = await User.find();
 
   res.status(200).json({
     success: true,
     users,
   });
-}
+});
 
 // Get user details   =>   /api/v1/admin/user/:id
-async function getUserDetailsv1(req, res, next) {
+export const getUserDetailsv1 = expressAsyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
@@ -371,10 +372,10 @@ async function getUserDetailsv1(req, res, next) {
     success: true,
     user,
   });
-}
+});
 
 // Update user profile   =>   /api/v1/admin/user/:id
-async function updateUserv1(req, res, next) {
+export const updateUserv1 = expressAsyncHandler(async (req, res, next) => {
   const newUserData = {
     name: req.body.name,
     email: req.body.email,
@@ -390,10 +391,10 @@ async function updateUserv1(req, res, next) {
   res.status(200).json({
     success: true,
   });
-}
+});
 
 // Delete user   =>   /api/v1/admin/user/:id
-async function deleteUserv1(req, res, next) {
+export const deleteUserv1 = expressAsyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
   if (!user) {
@@ -411,23 +412,4 @@ async function deleteUserv1(req, res, next) {
   res.status(200).json({
     success: true,
   });
-}
-
-module.exports = {
-  mailgun,
-  forgetPassword,
-  registerUser,
-  loginUser,
-  registerUserv1,
-  loginUserv1,
-  forgotPasswordv1,
-  resetPasswordv1,
-  getUserProfilev1,
-  updatePasswordv1,
-  updateProfilev1,
-  logoutv1,
-  allUsersv1,
-  getUserDetailsv1,
-  updateUserv1,
-  deleteUserv1,
-};
+});

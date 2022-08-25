@@ -1,34 +1,50 @@
-const userRouter = require('express').Router();
-
-const bcrypt = require('bcryptjs');
-const expressAsyncHandler = require('express-async-handler');
-const User = require('../models/userModel');
-const jwt = require('jsonwebtoken');
-// const Token = require('../models/token');
-const { isAdmin, isAuth, isSellerOrAdmin, generateToken } = require('../utils');
-
-const {
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import expressAsyncHandler from 'express-async-handler';
+import User from '../models/userModel.js';
+import jwt from 'jsonwebtoken';
+import Token from '../models/token.js';
+import { generateToken, isAdmin, isAuth, isSellerOrAdmin } from '../utils.js';
+import {
+  allUsersv1,
+  deleteUserv1,
+  forgotPasswordv1,
+  getUserDetailsv1,
+  getUserProfilev1,
+  loginUser,
   loginUserv1,
   logoutv1,
+  registerUser,
   registerUserv1,
-} = require('../controllers/AuthController');
-
-const {
+  resetPasswordv1,
+  updatePasswordv1,
+  updateProfilev1,
+  updateUserv1,
+} from '../controllers/AuthController.js';
+import authMiddleWare from '../middleware/AuthMiddleware.js';
+import {
   activateAccount,
+  deleteUser,
   followUser,
   getAllUsers,
+  getUser,
   NewSignIn,
   NewSignUp,
   unfollowUser,
-} = require('../controllers/UserController');
+  updateUser,
+} from '../controllers/UserController.js';
+import { authorizeRoles, isAuthenticatedUser } from '../middleware/auth.js';
+import ROLES_LIST from '../config/roles_list.js';
+import mg from 'mailgun-js';
+// import { SignUp_user_verify, SignUp_user_verify_get } from './user_verify.js';
 
-const mg = require('mailgun-js');
-
-const mailgun = () =>
+export const mailgun = () =>
   mg({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
   });
+
+const userRouter = express.Router();
 
 // top seller routes
 userRouter.get(
@@ -602,4 +618,4 @@ userRouter.get('/logoutv1/:id', logoutv1);
 //   deleteUserv1
 // );
 
-module.exports = userRouter;
+export default userRouter;

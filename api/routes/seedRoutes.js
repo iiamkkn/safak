@@ -1,8 +1,10 @@
-const seedRouter = require('express').Router();
-const Product = require('../models/productModel');
-const data = require('../data');
-const User = require('../models/userModel');
-const expressAsyncHandler = require('express-async-handler');
+import express from 'express';
+import Product from '../models/productModel.js';
+import data from '../data.js';
+import User from '../models/userModel.js';
+import expressAsyncHandler from 'express-async-handler';
+
+const seedRouter = express.Router();
 
 // seedRouter.get('/', async (req, res) => {
 //   await Product.remove({});
@@ -32,4 +34,4 @@ seedRouter.get(
     }
   })
 );
-module.exports = seedRouter;
+export default seedRouter;

@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-
+import mongoose from 'mongoose';
 let randomNumber = Math.random();
 let WholeNumber = Math.floor(randomNumber * 1000000000) + 1;
 //  Model Starts here
@@ -24,4 +23,5 @@ const NewsLetterSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('NewsLetter', NewsLetterSchema);
+const NewsLetter = mongoose.model('NewsLetter', NewsLetterSchema);
+export default NewsLetter;

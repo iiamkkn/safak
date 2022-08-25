@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const mg = require('mailgun-js');
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import mg from 'mailgun-js';
 
-function generateToken(user) {
+export const generateToken = (user) => {
   return jwt.sign(
     {
       _id: user._id,
@@ -21,8 +21,9 @@ function generateToken(user) {
       expiresIn: '1d',
     }
   );
-}
-function isAuth(req, res, next) {
+};
+
+export const isAuth = (req, res, next) => {
   const authorization = req.headers.authorization;
   if (authorization) {
     const token = authorization.slice(7, authorization.length); // Bearer XXXXXX
@@ -37,41 +38,40 @@ function isAuth(req, res, next) {
   } else {
     res.status(401).send({ message: 'No Token' });
   }
-}
+};
 
-function isAdmin(req, res, next) {
+export const isAdmin = (req, res, next) => {
   if (req.user || (req.user && req.user.isAdmin)) {
     next();
   } else {
     res.status(401).send({ message: 'Invalid Admin Token' });
   }
-}
+};
 
-function isSeller(req, res, next) {
+export const isSeller = (req, res, next) => {
   if (req.user && req.user.isSeller) {
     next();
   } else {
     res.status(401).send({ message: 'Invalid Seller Token' });
   }
-}
-
-function isSellerOrAdmin(req, res, next) {
+};
+export const isSellerOrAdmin = (req, res, next) => {
   if (req.user && (req.user.isSeller || req.user.isAdmin)) {
     next();
   } else {
     res.status(401).send({ message: 'Invalid Admin/Seller Token' });
   }
-}
+};
 
 /// sending email notification on each paid purchase
 
-const mailgun = () =>
+export const mailgun = () =>
   mg({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
   });
 
-const payOrderEmailTemplate = (order) => {
+export const payOrderEmailTemplate = (order) => {
   return `
   
   <div style="background-color: #fff; padding: 7px;">
@@ -201,15 +201,6 @@ const payOrderEmailTemplate = (order) => {
   `;
 };
 
-module.exports = {
-  generateToken,
-  isAuth,
-  isAdmin,
-  isSeller,
-  isSellerOrAdmin,
-  mailgun,
-  payOrderEmailTemplate,
-};
 /* Header
 
 

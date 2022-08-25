@@ -1,23 +1,20 @@
-const User = require('../models/userModel');
-const NewsLetter = require('../models/NewsLetterModel');
-const Token = require('../models/token');
-// const validator = require('validator');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-// const sendEmail = require('../utils/sendEmail');
-const mg = require('mailgun-js');
-// const { mailgun } = require('../utils');
-const expressAsyncHandler = require('express-async-handler');
-const sendToken = require('../utils/jwtToken');
-const ErrorHandler = require('../utils/errorHandler');
+import User from '../models/userModel.js';
+import Token from '../models/token.js';
+import crypto from 'crypto';
+import sendEmail from '../utils/sendEmail.js';
+import bcrypt from 'bcrypt';
+import mg from 'mailgun-js';
+import jwt from 'jsonwebtoken';
+import NewsLetter from '../models/NewsLetterModel.js';
+import expressAsyncHandler from 'express-async-handler';
+import sendToken from '../utils/jwtToken.js';
+import ErrorHandler from '../utils/errorHandler.js';
 
-function mailgun() {
+export const mailgun = () =>
   mg({
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
   });
-}
 
 // export const SignUp_user_verify = async (req, res) => {
 //   const { name, username, email, password } = req.body;
@@ -79,7 +76,7 @@ function mailgun() {
 //   });
 // };
 
-async function SignUp_user_verify(req, res) {
+export const SignUp_user_verify = async (req, res) => {
   try {
     // const { error } = validate(req.body);
     // if (error)
@@ -137,11 +134,11 @@ async function SignUp_user_verify(req, res) {
     console.log(error);
     res.status(500).send({ message: 'Internal Server Error' });
   }
-}
+};
 
 // try catch one
 
-async function SignUp_Link_verification(req, res) {
+export const SignUp_Link_verification = async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id });
     if (!user) return res.status(400).json({ message: 'Invalid user' });
@@ -165,7 +162,7 @@ async function SignUp_Link_verification(req, res) {
       message: 'An Internal Server Error Occured. Please Try Again later.',
     });
   }
-}
+};
 
 // {}if else one
 
@@ -199,7 +196,7 @@ async function SignUp_Link_verification(req, res) {
 //   }
 // };
 
-async function Subscribe_newsLetter(req, res) {
+export const Subscribe_newsLetter = async (req, res) => {
   try {
     // const { error } = validate(req.body);
     // if (error)
@@ -251,9 +248,9 @@ async function Subscribe_newsLetter(req, res) {
     console.log(error);
     res.status(500).send({ message: 'Internal Server Error' });
   }
-}
+};
 
-async function user_forgetpass(req, res) {
+export const user_forgetpass = async (req, res) => {
   try {
     let user = await User.findOne({ email: req.body.email });
     if (!user)
@@ -293,48 +290,41 @@ async function user_forgetpass(req, res) {
     console.log(error);
     res.status(500).send({ message: 'Internal Server Error' });
   }
-}
-
-async function user_forgetpass_update(req, res, next) {
-  // Hash URL token
-  const resetPasswordToken = crypto
-    .createHash('sha256')
-    .update(req.params.token)
-    .digest('hex');
-
-  const user = await User.findOne({
-    resetPasswordToken,
-    resetPasswordExpire: { $gt: Date.now() },
-  });
-
-  if (!user) {
-    return next(new ErrorHandler('The Password Link is Expired.', 400));
-  }
-
-  if (req.body.password !== req.body.confirmPassword) {
-    return next(new ErrorHandler('Password does not match', 400));
-  }
-  if (req.body.password === '' || req.body.confirmPassword === '') {
-    return next(new ErrorHandler('Password Input is empty', 400));
-  }
-
-  // Setup new password
-  user.password = req.body.password;
-
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpire = undefined;
-
-  await user.save();
-
-  // sendToken(user, 200, res);
-  res.status(200).send({ message: 'Password upddated Successfully' });
-}
-
-module.exports = {
-  mailgun,
-  SignUp_user_verify,
-  SignUp_Link_verification,
-  Subscribe_newsLetter,
-  user_forgetpass,
-  user_forgetpass_update,
 };
+
+export const user_forgetpass_update = expressAsyncHandler(
+  async (req, res, next) => {
+    // Hash URL token
+    const resetPasswordToken = crypto
+      .createHash('sha256')
+      .update(req.params.token)
+      .digest('hex');
+
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return next(new ErrorHandler('The Password Link is Expired.', 400));
+    }
+
+    if (req.body.password !== req.body.confirmPassword) {
+      return next(new ErrorHandler('Password does not match', 400));
+    }
+    if (req.body.password === '' || req.body.confirmPassword === '') {
+      return next(new ErrorHandler('Password Input is empty', 400));
+    }
+
+    // Setup new password
+    user.password = req.body.password;
+
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    // sendToken(user, 200, res);
+    res.status(200).send({ message: 'Password upddated Successfully' });
+  }
+);

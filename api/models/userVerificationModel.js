@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const userVeriificationSchema = new mongoose.Schema({
   userId: {
@@ -11,4 +11,8 @@ const userVeriificationSchema = new mongoose.Schema({
   expiresAt: { type: Date },
 });
 
-module.exports = mongoose.model('UserVerification', userVeriificationSchema);
+const UserVerification = mongoose.model(
+  'UserVerification',
+  userVeriificationSchema
+);
+export default UserVerification;

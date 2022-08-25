@@ -1,11 +1,11 @@
 // import PostModel from '../models/postModel.js';
-const Product = require('../models/productModel');
-const User = require('../models/userModel');
-const mongoose = require('mongoose');
+import Product from '../models/productModel.js';
+import User from '../models/userModel.js';
+import mongoose from 'mongoose';
 
 // creating a post
 
-async function createPost(req, res) {
+export const createPost = async (req, res) => {
   const newPost = new Product(req.body);
 
   try {
@@ -14,11 +14,11 @@ async function createPost(req, res) {
   } catch (error) {
     res.status(500).json(error);
   }
-}
+};
 
 // get a post
 
-async function getPost(req, res) {
+export const getPost = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -27,9 +27,10 @@ async function getPost(req, res) {
   } catch (error) {
     res.status(500).json(error);
   }
-}
+};
+
 // update post
-async function updatePost(req, res) {
+export const updatePost = async (req, res) => {
   const postId = req.params.id;
   const { userId } = req.body;
 
@@ -42,10 +43,10 @@ async function updatePost(req, res) {
       res.status(403).json('Authentication failed');
     }
   } catch (error) {}
-}
+};
 
 // delete a post
-async function deletePost(req, res) {
+export const deletePost = async (req, res) => {
   const id = req.params.id;
   const { userId } = req.body;
 
@@ -60,10 +61,10 @@ async function deletePost(req, res) {
   } catch (error) {
     res.status(500).json(error);
   }
-}
+};
 
 // like/dislike a post
-async function likePost(req, res) {
+export const likePost = async (req, res) => {
   const id = req.params.id;
   const { userId } = req.body;
   try {
@@ -78,10 +79,10 @@ async function likePost(req, res) {
   } catch (error) {
     res.status(500).json(error);
   }
-}
+};
 
 // Get timeline posts
-async function getTimelinePosts(req, res) {
+export const getTimelinePosts = async (req, res) => {
   const userId = req.params.id;
   try {
     const currentUserPosts = await Product.find({ userId: userId });
@@ -118,12 +119,4 @@ async function getTimelinePosts(req, res) {
   } catch (error) {
     res.status(500).json(error);
   }
-}
-module.exports = {
-  createPost,
-  getPost,
-  updatePost,
-  deletePost,
-  likePost,
-  getTimelinePosts,
 };
