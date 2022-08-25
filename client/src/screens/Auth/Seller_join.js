@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../CSS/SellerJoin.css';
 import { Helmet } from 'react-helmet-async';
@@ -112,16 +113,50 @@ export default function SellerJoin() {
               </Logo> */}
               <div className="seller_join_divs_container">
                 <div className="seller_join_div_left">
-                  <h1>
+                  <motion.h1
+                    initial={{
+                      position: 'relative',
+                      top: '20%',
+                    }}
+                    whileInView={{
+                      top: '0%',
+                    }}
+                    transition={{
+                      duration: 2,
+                      type: 'spring',
+                    }}
+                  >
                     {lang === 'EN' ? 'Sell Your Products' : 'Adja el termékeit'}
-                  </h1>
-                  <h1>
+                  </motion.h1>
+                  <motion.h1
+                    initial={{
+                      position: 'relative',
+                      top: '20%',
+                    }}
+                    whileInView={{
+                      top: '0%',
+                    }}
+                    transition={{
+                      duration: 2,
+                      type: 'spring',
+                    }}
+                  >
                     <span className="Online4free">
-                      {' '}
                       {lang === 'EN' ? ' Online For Free!' : 'Online ingyen!'}
                     </span>
-                  </h1>
-                  <button
+                  </motion.h1>
+                  <motion.button
+                    initial={{
+                      position: 'relative',
+                      top: '20%',
+                    }}
+                    whileInView={{
+                      top: '0%',
+                    }}
+                    transition={{
+                      duration: 2,
+                      type: 'spring',
+                    }}
                     className="seller_join_now_btn"
                     type="submit"
                     onClick={onClickSellerBTN}
@@ -130,38 +165,128 @@ export default function SellerJoin() {
                       ? ' Open a Store Now'
                       : 'Nyisson meg egy online áruházat'}
                     <i className="bx bx-right-arrow-alt"></i>
-                  </button>
-                  <p>
+                  </motion.button>
+                  <motion.p
+                    initial={{
+                      position: 'relative',
+                      top: '20%',
+                    }}
+                    whileInView={{
+                      top: '0%',
+                    }}
+                    transition={{
+                      duration: 2,
+                      type: 'spring',
+                    }}
+                  >
                     {lang === 'EN'
                       ? ' Zalazon is an online marketplace with an aim to promote online selling and buying, for artisans, artists and manufacturers with a focus on e-commerce. Zalazon aims to empower the sellers, satisfy the customer and make online business professional, easy and fast.'
                       : 'A Zalazon egy online piactér, amelynek célja az online értékesítés és vásárlás népszerűsítése kézművesek, művészek és gyártók számára, az e-kereskedelemre fókuszálva. A Zalazon célja, hogy felhatalmazza az eladókat, kielégítse az ügyfeleket, és professzionálissá, egyszerűvé és gyorssá tegye az online üzletet.'}
-                  </p>
+                  </motion.p>
                 </div>
-                <div className="seller_join_div_right">
+                <motion.div
+                  initial={{
+                    position: 'relative',
+                    // top: '4%',
+                    left: '30%',
+                    // rotate: -180
+                  }}
+                  whileInView={{
+                    left: '0%',
+                    // rotate: 0
+                  }}
+                  // viewport={{}}
+
+                  transition={{
+                    duration: 3,
+                    // delay: 0.3,
+                    type: 'spring',
+                  }}
+                  // animate={{ x: 195 }}
+                  // whileHover={{
+                  //   rotate: 360,
+                  //   scale: 1.2,
+                  //   transition: { duration: 1 },
+                  // }}
+                  // whileHover={{ scale: 1.2, transition: { duration: 0.4 } }}
+                  whileTap={{ scale: 0.95 }}
+                  className="seller_join_div_right"
+                >
                   <img
                     src="https://res.cloudinary.com/kkn-cloudinary/image/upload/v1660687716/avatars/pexels-photo-7857499_dj8leb.webp"
                     alt=""
                   />
-                </div>
+                </motion.div>
               </div>
               <div className="expand_with_zalazon_DIV">
-                <div className="expand_with_zalazon">
+                <motion.div
+                  initial={{
+                    position: 'relative',
+                    left: '-20%',
+                  }}
+                  whileInView={{
+                    left: '0%',
+                  }}
+                  transition={{
+                    duration: 2,
+                    type: 'spring',
+                  }}
+                  className="expand_with_zalazon"
+                >
                   {lang === 'EN' ? (
                     <>Expand your Business</>
                   ) : (
                     'Bővítse vállalkozását'
                   )}
-                </div>
-                <div className="expand_with_zalazon_line2">
+                </motion.div>
+                <motion.div
+                  initial={{
+                    position: 'relative',
+                    left: '-20%',
+                  }}
+                  whileInView={{
+                    left: '0%',
+                  }}
+                  transition={{
+                    duration: 2,
+                    type: 'spring',
+                  }}
+                  className="expand_with_zalazon_line2"
+                >
                   {lang === 'EN' ? <>with Zalazon.</> : 'Zalazonnal.'}
-                </div>
+                </motion.div>
                 <div className="expand_with_zalazon_img_div">
-                  <img
+                  <motion.img
+                    initial={{
+                      position: 'relative',
+                      top: '30%',
+                    }}
+                    whileInView={{
+                      top: '0%',
+                    }}
+                    transition={{
+                      duration: 2,
+                      type: 'spring',
+                    }}
+                    whileTap={{ scale: 0.95 }}
                     src="https://res.cloudinary.com/kkn-cloudinary/image/upload/v1660687716/avatars/pexels-photo-7857491_p9mvkw.jpg"
                     alt=""
                     className="expand_with_zalazon_img"
                   />
-                  <div className="expand_with_zalazon_img_right_div">
+                  <motion.div
+                    initial={{
+                      position: 'relative',
+                      left: '-20%',
+                    }}
+                    whileInView={{
+                      left: '0%',
+                    }}
+                    transition={{
+                      duration: 2,
+                      type: 'spring',
+                    }}
+                    className="expand_with_zalazon_img_right_div"
+                  >
                     {lang === 'EN' ? (
                       <>
                         ✔ Get a free and easy-to-manage online store account.
@@ -192,10 +317,23 @@ export default function SellerJoin() {
                         áruházi hírcsatornákat és egyebeket
                       </>
                     )}
-                  </div>
+                  </motion.div>
                 </div>
               </div>
-              <div className="how_this_works_zalazon">
+              <motion.div
+                initial={{
+                  position: 'relative',
+                  top: '20%',
+                }}
+                whileInView={{
+                  top: '0%',
+                }}
+                transition={{
+                  duration: 2,
+                  type: 'spring',
+                }}
+                className="how_this_works_zalazon"
+              >
                 {lang === 'EN' ? (
                   <>How this all Works?</>
                 ) : (
@@ -388,7 +526,7 @@ export default function SellerJoin() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
               <h1 className="msg_top_zalazon">
                 {/* {lang === 'EN' ? (
                   <>

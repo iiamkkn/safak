@@ -11,6 +11,14 @@ const {
   mailgun,
   payOrderEmailTemplate,
 } = require('../utils');
+
+const mg = require('mailgun-js');
+
+const mailgun = () =>
+  mg({
+    apiKey: process.env.MAILGUN_API_KEY,
+    domain: process.env.MAILGUN_DOMAIN,
+  });
 // Get and List all orders
 orderRouter.get(
   '/',

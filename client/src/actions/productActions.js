@@ -1,5 +1,4 @@
 import Axios from 'axios';
-
 import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_REQUEST,

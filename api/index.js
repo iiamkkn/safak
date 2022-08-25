@@ -159,6 +159,6 @@ io.on('connection', (socket) => {
 // Port Config
 const port = process.env.PORT || 5000;
 // Server config
-httpServer.listen(port, () => {
+httpServer.listen(6000, () => {
   console.log(`Server Runs Successfully at http://localhost:${port}`);
 });
